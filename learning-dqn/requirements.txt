@@ -1,0 +1,6 @@
+numpy
+gym
+matplotlib
+seaborn
+pygame
+torch
