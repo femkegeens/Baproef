@@ -6,14 +6,9 @@
 import asyncio
 from bleak import BleakScanner, BleakClient
 
-from pynput.keyboard import Listener
-from pynput.keyboard import Key
-from struct import pack
-####for the cube stuff
-from kociemba import run_kociemba, run_random_cubes_kociemba
-from pglass_algo import run_pglass_algo, run_random_cubes_pglass
+from kociemba import run_kociemba
+from pglass_algo import run_pglass_algo
 import gym
-from gym_rubiks_cube.envs.rubiksCubeEnv import TransformCubeObject
 
 UART_SERVICE_UUID = "6E400001-B5A3-F393-E0A9-E50E24DCCA9E"
 UART_RX_CHAR_UUID = "6E400002-B5A3-F393-E0A9-E50E24DCCA9E"
@@ -44,10 +39,7 @@ async def robot_waiter_finished():
 
 
 def handle_rx(_, data: bytearray):
-    #print("Received:", data)Ha
-    
     decoded = data.decode()
-    #print(f"Received: {decoded}")
     
     if(decoded == "oki"):
         print("done, moving on")
@@ -136,7 +128,7 @@ async def main():
         except SyntaxError:
             pass
         
-        #finished_waiter_task = asyncio.create_task(robot_waiter_finished())
+        finished_waiter_task = asyncio.create_task(robot_waiter_finished())
         
 
         obs, scramble_moves = await initialise_gym()
@@ -164,11 +156,11 @@ async def main():
         # Disconnect when we are done.
         print("waiting on robot......")
     
-        #await finished_waiter_task
-       # print("disconnect from the hub")
-        #
-        # await client.disconnect()
-       # pass
+        await finished_waiter_task
+        print("disconnect from the hub")
+        
+        await client.disconnect()
+        pass
 
 
 # Run the main async program.

@@ -2,10 +2,7 @@ import twophase.solver  as sv
 from itertools import chain
 import time
 import gym
-#import gym_rubiks_cube
-import numpy as np
-import twophase.performance as pf
-from gym_rubiks_cube.envs.rubiksCubeEnv import TransformCubeObject
+
 #https://github.com/hkociemba/RubiksCube-TwophaseSolver
 
 """"
@@ -23,7 +20,6 @@ def convert_representation(color_vector):
     translated_cube_vect = list(chain(color_vector[0:9], #U 
                         color_vector[18:27], #R
                         color_vector[9:18], #F
-                        #string_vector[51:], string_vector[48:51], string_vector[45:48], #D
                         color_vector[51:],
                             color_vector[48:51],
                             color_vector[45:48],
@@ -131,7 +127,6 @@ def translate_moves_to_robot(solution_string):
 
 
 def run_kociemba(color_vector, to_print = True):
-    print(f"in kociemba, color vector = {color_vector}")
     cubestring = convert_representation(color_vector)
     solution = sv.solve(cubestring,20,10)
     nr_moves = nr_of_moves(solution)

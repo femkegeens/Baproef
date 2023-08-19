@@ -1,10 +1,6 @@
 # USING  https://github.com/pglass/cube
 
 import gym
-#import gym_rubiks_cube
-import numpy as np
-
-from gym_rubiks_cube.envs.rubiksCubeEnv import TransformCubeObject
 
 #pip install rubik-cube
 from rubik.cube import Cube
@@ -58,7 +54,6 @@ def convert_nr_to_string(n):
             return "G"
         case 5:
             return "Y"
-#string_vector = list(map(convert_nr_to_string, color_vector))
 
 def translate_moves_to_robot(solution):
    def move_to_robot(move):
@@ -112,8 +107,6 @@ def translate_moves_to_robot(solution):
 
 def run_pglass_algo(color_vector, to_print):
     cube_string = convert_representation(color_vector)
-    #cube_st = [4, 0, 0, 2, 2, 0, 3, 0, 2, 2, 1, 0, 5, 3, 5, 3, 5, 2,1, 2, 3, 3, 0, 4, 5, 1, 1,4, 4, 5, 1, 1, 1, 4, 3, 2,1, 3, 0, 5, 5, 4,3, 0, 5, 5, 4, 0, 3, 4, 2,4, 2, 1]
-    #cube_string = convert_representation(cube_st)
     cube = Cube(cube_string)
     
     if to_print:
@@ -130,8 +123,6 @@ def run_pglass_algo(color_vector, to_print):
     translated = translate_moves_to_robot(optimised)
     
     return cube, solver, optimised, translated #to access its properties
-
-#nr_moves, solution, translated 
 
 def run_random_cubes_pglass():
     successes = 0
